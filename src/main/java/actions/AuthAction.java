@@ -65,7 +65,8 @@ public class AuthAction extends ActionBase {
         String plainPass = getRequestParam(AttributeConst.EMP_PASS);
         String pepper = getContextScope(PropertyConst.PEPPER);
 
-        //有効な従業員か認証する
+
+      //有効な従業員か認証する
         Boolean isValidEmployee = service.validateLogin(code, plainPass, pepper);
 
         if (isValidEmployee) {
@@ -74,7 +75,7 @@ public class AuthAction extends ActionBase {
             //CSRF対策 tokenのチェック
             if (checkToken()) {
 
-                //ログインした従業員のDBデータを取得
+              //ログインした従業員のDBデータを取得
                 EmployeeView ev = service.findOne(code, plainPass, pepper);
                 //セッションにログインした従業員を設定
                 putSessionScope(AttributeConst.LOGIN_EMP, ev);
@@ -86,7 +87,7 @@ public class AuthAction extends ActionBase {
         } else {
             //認証失敗の場合
 
-            //CSRF対策用トークンを設定
+          //CSRF対策用トークンを設定
             putRequestScope(AttributeConst.TOKEN, getTokenId());
             //認証失敗エラーメッセージ表示フラグをたてる
             putRequestScope(AttributeConst.LOGIN_ERR, true);
