@@ -140,7 +140,7 @@ table#report_list th {
 }
 
 table#report_list .report_name {
-    width: 20%;
+    width: 15%;
     padding: 10px 2%;
 }
 table#report_list .report_date {
@@ -148,7 +148,11 @@ table#report_list .report_date {
 }
 
 table#report_list .report_title {
-    width: 37%;
+    width: 32%;
+}
+
+table#report_list .report_good_count {
+    width: 10%;
 }
 
 table#report_list .report_action {

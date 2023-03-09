@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="constants.ForwardConst" %>
+<%@ page import="constants.AttributeConst" %>
 
 <c:set var="actRep" value="${ForwardConst.ACT_REP.getValue()}" />
 <c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
@@ -37,6 +38,10 @@
                     <fmt:parseDate value="${report.updatedAt}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="updateDay" type="date" />
                     <td><fmt:formatDate value="${updateDay}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                 </tr>
+                <tr>
+                    <th>いいね！</th>
+                    <td><c:out value="${report.goodCount}" /></td>
+                </tr>
             </tbody>
         </table>
 
@@ -44,6 +49,16 @@
             <p>
                 <a href="<c:url value='?action=${actRep}&command=${commEdt}&id=${report.id}' />">この日報を編集する</a>
             </p>
+        </c:if>
+        
+        <c:if test="${sessionScope.login_employee.id != report.employee.id}">
+            <form method="POST" action="<c:url value='?action=Report&command=countUpGood'/>">
+                <p>
+                <input type="hidden" name="${AttributeConst.REP_ID.getValue()}" value="${report.id}" />
+                <input type="hidden" name="${AttributeConst.TOKEN.getValue()}" value="${_token}" />
+                <button type="submit">いいね！</button>
+                </p>
+            </form>
         </c:if>
 
         <p>
